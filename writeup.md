@@ -23,24 +23,25 @@ The goals / steps of this project are the following:
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
-### Writeup _(This File)_
+### Writeup, Notebooks, and Files
 
-This Writeup serves as a guide to how my projects addresses the items called out in the Rubric.
+This Writeup serves as a guide to how my projects addresses the items called out in the Rubric.  The [AdvancedLaneFinding.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/AdvancedLaneFinding.ipynb) notebook houses the source to calibrate the camera and the pipeline used to detect the lane lines within images.  Peppered between functions are cells (noted as _Testing/Plotting Cell(s):_) that are inserted to test functionality.  Test images and found line result videos can be found in test_images and output_images respectively.
 
 ### Camera Calibration
+The _Camera Calibration_ notebook cells perform the following functions:
+1. Read in the images (RGB)
+2. Convert to grayscale
+3. Use the OpenCV **findChessboardCorners** to locate the 9x6 corners on the image
+4. Store valid corners (imagePoints) and their corresponding world points (worldPoints)
+5. Use the image and world points as parameters for the OpenCV **calibrateCamera**
+6. Save the resulting camera matrix and distortion coefficients for use by the pipeline with the OpenCV **undistort** method.
 
-#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
-
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
-
-I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
-
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+This is an example of a calibration test image that has had its distortion corrected:
 
 ![Undistorted][image1]
 
 ### Pipeline (single images)
-The [AdvancedLaneFinding.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/AdvancedLaneFinding.ipynb) notebook houses the pipeline used to detect the lane lines within images.
+
 
 #### 1. Distortion-corrected
 
