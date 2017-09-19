@@ -1,10 +1,4 @@
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
-**Advanced Lane Finding Project**
+# Advanced Lane Finding Project
 
 The goals / steps of this project are the following:
 
@@ -20,7 +14,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
+[image2]: ./examples/distortion_correction.png "Road Transformed"
 [image3]: ./examples/binary_combo_example.jpg "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
@@ -29,15 +23,9 @@ The goals / steps of this project are the following:
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Writeup _(This File)_
 
----
-
-### Writeup / README
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
-
-You're reading it!
+This Writeup serves as a guide to how my projects addresses the items called out in the Rubric.
 
 ### Camera Calibration
 
@@ -49,18 +37,19 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
-![alt text][image1]
+![Undistorted][image1]
 
 ### Pipeline (single images)
+The [AdvancedLaneFinding.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/AdvancedLaneFinding.ipynb) notebook houses the pipeline used to detect the lane lines within images.
 
-#### 1. Provide an example of a distortion-corrected image.
+#### 1. Distortion-corrected
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+The first step in the pipeline, the _Functions for undistortion_ section, uses the camera calibration matrix and the cv2.undistort() function to correct an image.  It produces the following results:
+![Step 1 Distortion-Correction][image2]
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Binary Image Threshold Correction
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+The _Functions to create filtered binary images_ section provides many functions for performing binary image corrections, with its following testing section for visualizing the results.  Initially, [ThresholdTesting.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/ThresholdTesting.ipynb) was used to experiment with various Sobel threshold and colorspace techniques.  The final 
 
 ![alt text][image3]
 
