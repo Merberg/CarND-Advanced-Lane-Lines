@@ -13,13 +13,13 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./examples/distortion_correction.png "Road Transformed"
-[image3]: ./examples/binary_combo_example.png "Binary Threshold Combo"
-[image4]: ./examples/warped_birds_eye.png "Warp Example"
-[image5]: ./examples/straight_lane_birdseye.png "Straight Warp Example"
-[image6]: ./examples/findInitialLaneInImage_example.png "Window Lane Finding"
-[image7]: ./examples/results_example.png "Results"
+[image1]: ./output_images/undistort_output.png "Undistorted"
+[image2]: ./output_images/step1_distortion_correction.png "Road Transformed"
+[image3]: ./output_images/step2_binary_combo_example.png "Binary Threshold Combo"
+[image4]: ./output_images/step3_warped_birds_eye.png "Warp Example"
+[image5]: ./output_images/step3_straight_lane_birdseye.png "Straight Warp Example"
+[image6]: ./output_images/step4_findInitialLaneInImage_example.png "Window Lane Finding"
+[image7]: ./output_images/step56_results_example.png "Results"
 [video1]: ./output_images/project_results.mp4 "Results Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
