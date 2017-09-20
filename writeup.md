@@ -20,6 +20,7 @@ The goals / steps of this project are the following:
 [image5]: ./examples/straight_lane_birdseye.png "Straight Warp Example"
 [image6]: ./examples/findInitialLaneInImage_example.png "Window Lane Finding"
 [image7]: ./examples/results_example.png "Results"
+[video1]: ./output_images/project_results.mp4 "Results Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -147,7 +148,9 @@ def findLanes(img):
     return resultImg
 ```
 
-The pipeline in action: [Lane Finding Results Video](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/output_images/project_results.mp4)
+The pipeline in action:
+
+![Results on project_video][video1]
 
 Two additional videos have been saved within the output_images folder: challenge_results.mp4 and harder_challenge_results.mp4.  While the pipeline fails in these videos (unless the car has some unknown, Bond-style features), they help to highlight shortcomings with the pipeline as noted in the next section.
 
