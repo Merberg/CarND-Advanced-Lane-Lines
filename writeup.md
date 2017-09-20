@@ -26,7 +26,7 @@ The goals / steps of this project are the following:
 
 ### Writeup, Notebooks, and Files
 
-This Writeup serves as a guide to how my projects addresses the items called out in the Rubric.  The [AdvancedLaneFinding.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/AdvancedLaneFinding.ipynb) notebook houses the source to calibrate the camera and the pipeline used to detect the lane lines within images.  Peppered between functions are cells (noted as `Testing/Plotting Cell(s):`) that are inserted to test functionality.  Test images and results videos can be found in test_images and output_images respectively.
+This Writeup serves as a guide to how my projects addresses the items called out in the Rubric.  The [AdvancedLaneFinding.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/AdvancedLaneFinding.ipynb) notebook houses the source to calibrate the camera and the pipeline used to detect the lane lines within images.  Peppered between functions are cells (noted as `Testing/Plotting Cell(s):`) that are inserted to test functionality.  Test images and results videos can be found in test_images and output_images respectively.  The name of the image in the output_images folder reflects the pipeline step during which it was captured.
 
 ### Camera Calibration
 The `Camera Calibration` cells perform the following functions:
