@@ -148,7 +148,7 @@ def findLanes(img):
     return resultImg
 ```
 
-The pipeline in action:
+The pipeline in action: [Results Video](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/output_images/project_results.mp4)
 
 ![Results on project_video][video1]
 
