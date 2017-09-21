@@ -105,7 +105,7 @@ M_PER_PIXEL_y = LANE_LENGTH_m/720
 M_PER_PIXEL_x = LANE_WIDTH_m/LANE_WIDTH_pixel
 ```
 The formula for the radius of curvature at any point _x_ for the curve _y = f(x) (the lane line's second degree polynomial_) can be used to determine the radius in meters.
-To track the car's placement within the lane, offsets from image center (assuming center camera mounting) are tracked.  These approximate values help orient lane calculations in the real world.
+To track the car's placement within the lane, offsets from image center (assuming center camera mounting) are tracked.  These approximate values help orient lane calculations in the real world.  In addition, a boundary can be placed around where a lane is expected to be to assist in filtering out image noise.
 
 #### 6. Marking Lanes on Images
 
