@@ -17,9 +17,10 @@ The goals / steps of this project are the following:
 [image2]: ./output_images/step1_distortion_correction.png "Road Transformed"
 [image3]: ./output_images/step2_binary_combo_example.png "Binary Threshold Combo"
 [image4]: ./output_images/step3_warped_birds_eye.png "Warp Example"
-[image5]: ./output_images/step3_straight_lane_birdseye.png "Straight Warp Example"
+[image5]: ./output_images/step3_birds_eye.png "Finding Birds-Eye Points"
 [image6]: ./output_images/step4_findInitialLaneInImage_example.png "Window Lane Finding"
 [image7]: ./output_images/step56_results_example.png "Results"
+[image8]: ./examples/CIELAB_colorwheel.png "CIELAB"
 [video1]: ./output_images/project_results.mp4 "Results Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -52,13 +53,14 @@ The first step in the pipeline, the `Functions for undistortion` section, uses t
 
 #### 2. Binary Image Threshold Correction
 
-The `Functions to create filtered binary images` section contains the functions utilized for performing binary image corrections.  Initially, [ThresholdTesting.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/ThresholdTesting.ipynb) was used to experiment with various Sobel thresholds and colorspace techniques.  The final threshold combination used to produce the following filtered images is:
+The `Functions to create filtered binary images` section contains the functions utilized for performing binary image corrections.  Initially, [ThresholdTesting.ipynb](https://github.com/Merberg/CarND-Advanced-Lane-Lines/blob/master/ThresholdTesting.ipynb) was used to experiment with various Sobel gradients and color space techniques.  In researching color spaces, CIE recommends that CIELAB is used for colored surfaces and dyes.  The lightness channel L, can be utilized for whites.  And with this chart as a guide:
 
-```
-(Sobel Magnitude & Sobel Direction) | Saturation
-```
+![Step 2 CIELAB Map][image8] [Copywrite handprint media](http://www.handprint.com/HP/WCL/vismixmap.html)
+the blue-yellow channel (b) will filter for yellow.  The final threshold combination used to produce the following filtered images is: `Yellow Binary | White Binary`
 
 ![Step 2 Binary Threshold Combo][image3]
+
+Note that while Sobel gradients were explored in the testing, their use added more noise to the filtered binary.
 
 #### 3. Perspective Transformation
 
@@ -69,15 +71,15 @@ The triptych above shows the undistorted image and its binary threshold and colo
 ![Step 3 Birds Eye Straight][image5]
 
 ```python
-birdsEyeOffset = np.absolute(LANE_WIDTH_pixel - 1280)/2
-birdsEyeSrc = np.float32([(605, 442),
-                          (674, 442),
-                          (1068, 685),
-                          (240, 685)])
-birdsEyeDst = np.float32([[birdsEyeOffset, 0],
-                          [1280-birdsEyeOffset, 0],
-                          [1280-birdsEyeOffset, 720],
-                          [birdsEyeOffset, 720]])
+birdsEyeOffset = np.absolute(LANE_WIDTH_pixel - IMAGE_WIDTH)/2
+birdsEyeSrc = np.float32([(577, 460),
+                          (709, 460),
+                          (1018, 650),
+                          (birdsEyeOffset, 650)])
+birdsEyeDst = np.float32([(birdsEyeOffset, 0),
+                          (IMAGE_WIDTH-birdsEyeOffset, 0),
+                          (IMAGE_WIDTH-birdsEyeOffset, IMAGE_HEIGHT),
+                          (birdsEyeOffset, IMAGE_HEIGHT)])
 ```
 
 #### 4. Lane Line Identification
@@ -111,7 +113,7 @@ To track the car's placement within the lane, offsets from image center (assumin
 
 ##### LaneLine Class
 
-To mark up the lane on an image, information about the lane's lines must be tracked.  The `LaneLine` class acts as a container for storing data applied to multiple images.  Some `LaneLine` members, like the polynomial coefficients, are updated using moving averages to assist in error correction.  It also has methods that utilize the lane indentification and real world estimate functions noted in sections above.  It is in the `adjust` method of this class that the two lanes work together to suppliment information.
+To mark up the lane on an image, information about the lane's lines must be tracked.  The `LaneLine` class acts as a container for storing data applied to multiple images.  Some `LaneLine` members, like the polynomial coefficients, are updated with history (moving averages, exponential smoothing) to assist in error correction.  It also has methods that utilize the lane indentification and real world estimate functions noted in sections above.  It is in the `adjust` method of this class that the two lanes work together to suppliment information.
 
 Once two `LaneLine` classes are populated, a polygon can be created that marks the lane boundaries.  This polygon is subjected to a reverse birds-eye transform and then overlaid on a undistorted, color image.  Text noting the radius and center offset is also added.
 
@@ -158,4 +160,4 @@ Two additional videos have been saved within the output_images folder: challenge
 
 ### Discussion
 
-I feel my approach is fragile as evident by its performance on the challenge videos.  First, the imperical coordinates used for the birds-eye transformation fail with modifications to images such as camera mounting, camera movement/bouncing, and resolution.  This could be addressed using geometry and known properties of the camera.  Additional cropping could also be applied to remove noise from adjacent lanes and shoulders.  Secondly, there could be more interaction/coordination between the `LaneLine` instances using real world attributes for error correction.  I believe this could prevent the lane from jumping the lines in the challenge videos.  And last, accounting for a known trajectory (i.e. lanes have predictive behavior) could correct harsh lighting conditions like what is evident in the harder challenge video.
+I feel my approach is fragile as evident by its performance on the challenge videos.  First, the imperical coordinates used for the birds-eye transformation fail with modifications to images such as camera mounting, camera movement/bouncing, and resolution.  This could be addressed using geometry and known properties of the camera.  Additional cropping could also be applied to remove noise from adjacent lanes and shoulders.  The order of operations could also be adjusted to perform the birds-eye warping prior to binary thresholding.  Secondly, there could be more interaction/coordination between the `LaneLine` instances using real world attributes for error correction.  I believe this could prevent the lane from jumping the lines in the challenge videos.  And last, accounting for a known trajectory (i.e. lanes have predictive behavior) could correct harsh lighting conditions like what is evident in the harder challenge video.
